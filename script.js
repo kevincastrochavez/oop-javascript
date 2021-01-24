@@ -92,29 +92,68 @@ DATA CAR 2: 'Mercedes' going at 95 km/h
 GOOD LUCK 😀
 */
 
-const Car = function (make, speed) {
-  this.make = make;
-  this.speed = speed;
-};
+// const Car = function (make, speed) {
+//   this.make = make;
+//   this.speed = speed;
+// };
 
-const bmw = new Car('BMW', 120);
-console.log(bmw);
+// const bmw = new Car('BMW', 120);
+// console.log(bmw);
 
-Car.prototype.accelerate = function () {
-  this.speed += 10;
-  console.log(bmw);
-};
+// Car.prototype.accelerate = function () {
+//   this.speed += 10;
+//   console.log(bmw);
+// };
 
-Car.prototype.break = function () {
-  this.speed -= 10;
-  console.log(bmw);
-};
+// Car.prototype.break = function () {
+//   this.speed -= 10;
+//   console.log(bmw);
+// };
 
-// console.log(bmw.__proto__);
-bmw.accelerate();
-bmw.accelerate();
-bmw.accelerate();
+// // console.log(bmw.__proto__);
+// bmw.accelerate();
+// bmw.accelerate();
+// bmw.accelerate();
 
-bmw.break();
-bmw.break();
-bmw.break();
+// bmw.break();
+// bmw.break();
+// bmw.break();
+
+///////////////////////////////////////
+// ES6 Classes
+
+// Class expression
+// const PersonCl = class {}
+
+// Class declaration
+class PersonCl {
+  constructor(fullName, birthYear) {
+    this.fullName = fullName;
+    this.birthYear = birthYear;
+  }
+
+  // Instance methods
+  // Methods will be added to .prototype property
+  calcAge() {
+    console.log(2037 - this.birthYear);
+  }
+
+  greet() {
+    console.log(`Hey ${this.fullName}`);
+  }
+}
+
+const jessica = new PersonCl('Jessica Davis', 1996);
+console.log(jessica);
+jessica.calcAge();
+
+console.log(jessica.__proto__ === PersonCl.prototype);
+
+// PersonCl.prototype.greet = function () {
+//   console.log(`Hey ${this.firstName}`);
+// };
+jessica.greet();
+
+// 1. Classes are NOT hoisted
+// 2. Classes are first-class citizes
+// 3. Classes are executed in strict mode
