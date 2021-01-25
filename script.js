@@ -3,35 +3,35 @@
 // /////////////////
 // // Constructor functions
 
-const Person = function (firstName, birthYear) {
-  // Instance properties
-  this.firstName = firstName;
-  this.birthYear = birthYear;
+// const Person = function (firstName, birthYear) {
+//   // Instance properties
+//   this.firstName = firstName;
+//   this.birthYear = birthYear;
 
-  // Never do this in a construction function! Many copies
-  // this.calcAge = function () {
-  //   console.log(2037 - this.birthYear);
-  // };
-};
+//   // Never do this in a construction function! Many copies
+//   // this.calcAge = function () {
+//   //   console.log(2037 - this.birthYear);
+//   // };
+// };
 
-const jonas = new Person('Jonas', 1991);
-// console.log(jonas);
+// const jonas = new Person('Jonas', 1991);
+// // console.log(jonas);
 
-// // 1. New {} is created
-// // 2. function is called, this = {}
-// // 3. {} linked to prototype
-// // 4. function automatically return {}
+// // // 1. New {} is created
+// // // 2. function is called, this = {}
+// // // 3. {} linked to prototype
+// // // 4. function automatically return {}
 
-const matilda = new Person('Matilda', 2017);
-const jack = new Person('Jack', 1975);
+// const matilda = new Person('Matilda', 2017);
+// const jack = new Person('Jack', 1975);
 
-// console.log(jonas instanceof Person);
+// // console.log(jonas instanceof Person);
 
-Person.hey = function () {
-  console.log('Hey there 👋');
-  console.log(this);
-};
-Person.hey();
+// Person.hey = function () {
+//   console.log('Hey there 👋');
+//   console.log(this);
+// };
+// Person.hey();
 
 // ///////////////////////////////////////
 // // Prototypes
@@ -230,50 +230,84 @@ GOOD LUCK 😀
 // sarah.calcAge();
 // console.log(sarah);
 
+// ///////////////////////////////////////
+// // Coding Challenge #2
+
+// /*
+// 1. Re-create challenge 1, but this time using an ES6 class;
+// 2. Add a getter called 'speedUS' which returns the current speed in mi/h (divide by 1.6);
+// 3. Add a setter called 'speedUS' which sets the current speed in mi/h (but converts it to km/h before storing the value, by multiplying the input by 1.6);
+// 4. Create a new car and experiment with the accelerate and brake methods, and with the getter and setter.
+
+// DATA CAR 1: 'Ford' going at 120 km/h
+
+// GOOD LUCK 😀
+// */
+
+// class Car {
+//   constructor(make, speed) {
+//     this.make = make;
+//     this.speed = speed;
+//   }
+
+//   accelerate() {
+//     this.speed += 10;
+//     console.log(`${this.make} is going at ${this.speed} km/h`);
+//   }
+
+//   break() {
+//     this.speed -= 10;
+//     console.log(`${this.make} is going at ${this.speed} km/h`);
+//   }
+
+//   set speedUS(currSpeed) {
+//     return (this.speed = currSpeed * 1.6);
+//   }
+
+//   get speedUS() {
+//     return this.speed / 1.6;
+//   }
+// }
+
+// const ford = new Car('Ford', 120);
+// console.log(ford);
+// ford.accelerate();
+// ford.accelerate();
+// ford.break();
+
+// ford.speedUS = 50;
+// console.log(ford);
+
 ///////////////////////////////////////
-// Coding Challenge #2
+// Inheritance Between "Classes": Constructor Functions
 
-/* 
-1. Re-create challenge 1, but this time using an ES6 class;
-2. Add a getter called 'speedUS' which returns the current speed in mi/h (divide by 1.6);
-3. Add a setter called 'speedUS' which sets the current speed in mi/h (but converts it to km/h before storing the value, by multiplying the input by 1.6);
-4. Create a new car and experiment with the accelerate and brake methods, and with the getter and setter.
+const Person = function (firstName, birthYear) {
+  this.firstName = firstName;
+  this.birthYear = birthYear;
+};
 
-DATA CAR 1: 'Ford' going at 120 km/h
+Person.prototype.calcAge = function () {
+  console.log(2037 - this.birthYear);
+};
 
-GOOD LUCK 😀
-*/
+const Student = function (firstName, birthYear, course) {
+  Person.call(this, firstName, birthYear);
+  this.course = course;
+};
 
-class Car {
-  constructor(make, speed) {
-    this.make = make;
-    this.speed = speed;
-  }
+// Before adding any methods to Student, because it'll be empty
+// Linking prototypes
+Student.prototype = Object.create(Person.prototype);
 
-  accelerate() {
-    this.speed += 10;
-    console.log(`${this.make} is going at ${this.speed} km/h`);
-  }
+Student.prototype.introduce = function () {
+  console.log(`My name is ${this.firstName} and I study ${this.course}`);
+};
 
-  break() {
-    this.speed -= 10;
-    console.log(`${this.make} is going at ${this.speed} km/h`);
-  }
+const mike = new Student('Mike', 2020, 'Computer Science');
+mike.introduce();
+console.log(mike);
+mike.calcAge();
 
-  set speedUS(currSpeed) {
-    return (this.speed = currSpeed * 1.6);
-  }
-
-  get speedUS() {
-    return this.speed / 1.6;
-  }
-}
-
-const ford = new Car('Ford', 120);
-console.log(ford);
-ford.accelerate();
-ford.accelerate();
-ford.break();
-
-ford.speedUS = 50;
-console.log(ford);
+console.log(mike.__proto__);
+console.log((Student.prototype.constructor = Student));
+console.log(mike);
