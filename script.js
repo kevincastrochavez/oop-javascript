@@ -27,11 +27,11 @@ const jack = new Person('Jack', 1975);
 
 // console.log(jonas instanceof Person);
 
-// Person.hey = function () {
-//   console.log('Hey there 👋');
-//   console.log(this);
-// };
-// Person.hey();
+Person.hey = function () {
+  console.log('Hey there 👋');
+  console.log(this);
+};
+Person.hey();
 
 // ///////////////////////////////////////
 // // Prototypes
@@ -180,7 +180,7 @@ jessica.greet();
 // 3. Classes are executed in strict mode
 
 const walter = new PersonCl('Walter White', 1965);
-// PersonCl.hey();
+PersonCl.hey();
 
 ///////////////////////////////////////
 // Setters and Getters (useful for data validation)
